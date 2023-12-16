@@ -29,7 +29,7 @@ fi
 # common defines
 FF_ARCH=$1
 if [ -z "$FF_ARCH" ]; then
-    echo "You must specific an architecture 'arm, armv7a, x86, ...'.\n"
+    echo "You must specific an architecture 'arm64, armv7a, x86, ...'.\n"
     exit 1
 fi
 
@@ -55,13 +55,6 @@ if [ "$FF_ARCH" = "armv7a" ]; then
     FF_SOURCE=$FF_BUILD_ROOT/$FF_BUILD_NAME
 
     FF_CMAKE_ABI="armeabi-v7a with NEON"
-    FF_CMAKE_EXTRA_FLAGS="-DHAVE_WORDS_BIGENDIAN_EXITCODE=1 -DWITH_SIMD=0"
-
-elif [ "$FF_ARCH" = "armv5" ]; then
-    FF_BUILD_NAME=libsoxr-armv5
-    FF_SOURCE=$FF_BUILD_ROOT/$FF_BUILD_NAME
-
-    FF_CMAKE_ABI="armeabi"
     FF_CMAKE_EXTRA_FLAGS="-DHAVE_WORDS_BIGENDIAN_EXITCODE=1 -DWITH_SIMD=0"
 
 elif [ "$FF_ARCH" = "x86" ]; then

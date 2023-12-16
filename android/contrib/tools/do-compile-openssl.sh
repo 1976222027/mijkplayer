@@ -29,7 +29,7 @@ fi
 # common defines
 FF_ARCH=$1
 if [ -z "$FF_ARCH" ]; then
-    echo "You must specific an architecture 'arm, armv7a, x86, ...'.\n"
+    echo "You must specific an architecture 'arm64, armv7a, x86, ...'.\n"
     exit 1
 fi
 
@@ -71,15 +71,6 @@ if [ "$FF_ARCH" = "armv7a" ]; then
 	FF_TOOLCHAIN_NAME=${FF_CROSS_PREFIX}-${FF_GCC_VER}
 
     FF_PLATFORM_CFG_FLAGS="android-armv7"
-
-elif [ "$FF_ARCH" = "armv5" ]; then
-    FF_BUILD_NAME=openssl-armv5
-    FF_SOURCE=$FF_BUILD_ROOT/$FF_BUILD_NAME
-	
-    FF_CROSS_PREFIX=arm-linux-androideabi
-	FF_TOOLCHAIN_NAME=${FF_CROSS_PREFIX}-${FF_GCC_VER}
-
-    FF_PLATFORM_CFG_FLAGS="android"
 
 elif [ "$FF_ARCH" = "x86" ]; then
     FF_BUILD_NAME=openssl-x86

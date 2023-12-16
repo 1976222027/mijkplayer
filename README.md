@@ -1,9 +1,9 @@
 # ijkplayer
 
- Platform | Build Status
+ Platform | Build Guide
  -------- | ------------
- Android | [![Build Status](https://travis-ci.org/Bilibili/ci-ijk-ffmpeg-android.svg?branch=master)](https://travis-ci.org/Bilibili/ci-ijk-ffmpeg-android)
- iOS | [![Build Status](https://travis-ci.org/Bilibili/ci-ijk-ffmpeg-ios.svg?branch=master)](https://travis-ci.org/Bilibili/ci-ijk-ffmpeg-ios)
+ Android | [编译指南](build-android.md)
+ iOS | [编译指南](buld-ios.md)
 
 Video player based on [ffplay](http://ffmpeg.org)
 
@@ -15,23 +15,23 @@ Video player based on [ffplay](http://ffmpeg.org)
 # required
 allprojects {
     repositories {
-        jcenter()
+        maven {url 'https://jitpack.io'}
     }
 }
 
 dependencies {
     # required, enough for most devices.
-    compile 'tv.danmaku.ijk.media:ijkplayer-java:0.8.8'
-    compile 'tv.danmaku.ijk.media:ijkplayer-armv7a:0.8.8'
+    compile 'com.gitee.mahongyin:ijkplayer-java:0.1.0'
+    compile 'com.gitee.mahongyin:ijkplayer-armv7a:0.1.0'
 
     # Other ABIs: optional
-    compile 'tv.danmaku.ijk.media:ijkplayer-armv5:0.8.8'
-    compile 'tv.danmaku.ijk.media:ijkplayer-arm64:0.8.8'
-    compile 'tv.danmaku.ijk.media:ijkplayer-x86:0.8.8'
-    compile 'tv.danmaku.ijk.media:ijkplayer-x86_64:0.8.8'
+    compile 'com.gitee.mahongyin:ijkplayer-arm64:0.1.0'
+    compile 'com.gitee.mahongyin:ijkplayer-x86:0.1.0'
+    compile 'com.gitee.mahongyin:ijkplayer-x86_64:0.1.0'
 
     # ExoPlayer as IMediaPlayer: optional, experimental
-    compile 'tv.danmaku.ijk.media:ijkplayer-exo:0.8.8'
+    compile 'com.gitee.mahongyin:ijkplayer-exo:0.1.0'
+    compile 'com.gitee.mahongyin:ijkplayer-exo2:0.1.0'
 }
 ```
 - iOS
@@ -54,26 +54,34 @@ dependencies {
 - [NEWS.md](NEWS.md)
 
 ### Features
-- Common
+- Common公共
  - remove rarely used ffmpeg components to reduce binary size [config/module-lite.sh](config/module-lite.sh)
+ - 删除很少使用的 ffmpeg 组件以减少二进制大小 [configmodule-lite.sh](configmodule-lite.sh)
  - workaround for some buggy online video.
+ - 一些有问题的在线视频的解决方法。
 - Android
- - platform: API 9~23
- - cpu: ARMv7a, ARM64v8a, x86 (ARMv5 is not tested on real devices)
+ - platform: API 16~34
+ - 平台：API 16~34
+ - cpu: ARMv7a, ARM64v8a, x86 x86_64
  - api: [MediaPlayer-like](android/ijkplayer/ijkplayer-java/src/main/java/tv/danmaku/ijk/media/player/IMediaPlayer.java)
  - video-output: NativeWindow, OpenGL ES 2.0
+ - 视频输出：NativeWindow、OpenGL ES 2.0
  - audio-output: AudioTrack, OpenSL ES
+ - 音频输出：AudioTrack、OpenSL ES
  - hw-decoder: MediaCodec (API 16+, Android 4.1+)
+ - 硬件解码器：MediaCodec（API 16+、Android 4.1+）
  - alternative-backend: android.media.MediaPlayer, ExoPlayer
+ - 替代后端：android.media.MediaPlayer、ExoPlayer
 - iOS
- - platform: iOS 7.0~10.2.x
+ - platform: iOS 7.0~17.x
+ - iOS - 平台：iOS 7.0~17.x
  - cpu: armv7, arm64, i386, x86_64, (armv7s is obselete)
  - api: [MediaPlayer.framework-like](ios/IJKMediaPlayer/IJKMediaPlayer/IJKMediaPlayback.h)
  - video-output: OpenGL ES 2.0
  - audio-output: AudioQueue, AudioUnit
  - hw-decoder: VideoToolbox (iOS 8+)
  - alternative-backend: AVFoundation.Framework.AVPlayer, MediaPlayer.Framework.MPMoviePlayerControlelr (obselete since iOS 8)
-
+    - cpu ：armv7、arm64、i386、x86_64、（armv7s 已过时） - api：[MediaPlayer.framework-like](iosIJKMediaPlayerIJKMediaPlayerIJKMediaPlayback.h) - 视频输出：OpenGL ES 2.0 - 音频输出：AudioQueue、AudioUnit - 硬件解码器： VideoToolbox (iOS 8+) - 替代后端：AVFoundation.Framework.AVPlayer、MediaPlayer.Framework.MPMoviePlayerControlelr（自 iOS 8 起已废弃）
 ### NOT-ON-PLAN
 - obsolete platforms (Android: API-8 and below; iOS: pre-6.0)
 - obsolete cpu: ARMv5, ARMv6, MIPS (I don't even have these types of devices…)
@@ -108,7 +116,9 @@ sh compile-ffmpeg.sh clean
 - If you prefer less codec/format for smaller binary size (include hevc function)
 ```
 cd config
+# 删除默认的解码器
 rm module.sh
+# 创建一个软连接指向 module-lite-hevc.sh，这个可根据自己需求进行选择
 ln -s module-lite-hevc.sh module.sh
 cd android/contrib
 # cd ios
