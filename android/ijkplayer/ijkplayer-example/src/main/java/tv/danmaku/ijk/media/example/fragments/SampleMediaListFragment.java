@@ -19,14 +19,18 @@ package tv.danmaku.ijk.media.example.fragments;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -36,6 +40,7 @@ import tv.danmaku.ijk.media.example.activities.VideoActivity;
 public class SampleMediaListFragment extends Fragment {
     private ListView mFileListView;
     private SampleMediaAdapter mAdapter;
+    private AlertDialog alertDialog;
 
     public static SampleMediaListFragment newInstance() {
         SampleMediaListFragment f = new SampleMediaListFragment();
@@ -67,69 +72,99 @@ public class SampleMediaListFragment extends Fragment {
                 VideoActivity.intentTo(activity, url, name);
             }
         });
+        mFileListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int position, long id) {
+                final SampleMediaItem item = mAdapter.getItem(position);
+                String url = item.mUrl;
+                if (Build.VERSION.SDK_INT >= 21) {
+                    alertDialog = new AlertDialog
+                            .Builder(getContext())
+                            .setView(LayoutInflater.from(getContext()).inflate(R.layout.layout_edit, (ViewGroup) null, true))
+                            .setMessage("修改")
+                            .setPositiveButton("确认", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    item.mUrl = ((EditText) alertDialog.findViewById(R.id.ed_tv)).getText().toString();
+                                    mAdapter.notifyDataSetChanged();
+                                }
+                            }).create();
+                    alertDialog.show();
+                    ((EditText) alertDialog.findViewById(R.id.ed_tv)).setText(url);
+                }
+                return true;
+            }
+        });
 
         String manifest_string =
                 "{\n" +
-                "    \"version\": \"1.0.0\",\n" +
-                "    \"adaptationSet\": [\n" +
-                "        {\n" +
-                "            \"duration\": 1000,\n" +
-                "            \"id\": 1,\n" +
-                "            \"representation\": [\n" +
-                "                {\n" +
-                "                    \"id\": 1,\n" +
-                "                    \"codec\": \"avc1.64001e,mp4a.40.5\",\n" +
-                "                    \"url\": \"http://las-tech.org.cn/kwai/las-test_ld500d.flv\",\n" +
-                "                    \"backupUrl\": [],\n" +
-                "                    \"host\": \"las-tech.org.cn\",\n" +
-                "                    \"maxBitrate\": 700,\n" +
-                "                    \"width\": 640,\n" +
-                "                    \"height\": 360,\n" +
-                "                    \"frameRate\": 25,\n" +
-                "                    \"qualityType\": \"SMOOTH\",\n" +
-                "                    \"qualityTypeName\": \"流畅\",\n" +
-                "                    \"hidden\": false,\n" +
-                "                    \"disabledFromAdaptive\": false,\n" +
-                "                    \"defaultSelected\": false\n" +
-                "                },\n" +
-                "                {\n" +
-                "                    \"id\": 2,\n" +
-                "                    \"codec\": \"avc1.64001f,mp4a.40.5\",\n" +
-                "                    \"url\": \"http://las-tech.org.cn/kwai/las-test_sd1000d.flv\",\n" +
-                "                    \"backupUrl\": [],\n" +
-                "                    \"host\": \"las-tech.org.cn\",\n" +
-                "                    \"maxBitrate\": 1300,\n" +
-                "                    \"width\": 960,\n" +
-                "                    \"height\": 540,\n" +
-                "                    \"frameRate\": 25,\n" +
-                "                    \"qualityType\": \"STANDARD\",\n" +
-                "                    \"qualityTypeName\": \"标清\",\n" +
-                "                    \"hidden\": false,\n" +
-                "                    \"disabledFromAdaptive\": false,\n" +
-                "                    \"defaultSelected\": true\n" +
-                "                },\n" +
-                "                {\n" +
-                "                    \"id\": 3,\n" +
-                "                    \"codec\": \"avc1.64001f,mp4a.40.5\",\n" +
-                "                    \"url\": \"http://las-tech.org.cn/kwai/las-test.flv\",\n" +
-                "                    \"backupUrl\": [],\n" +
-                "                    \"host\": \"las-tech.org.cn\",\n" +
-                "                    \"maxBitrate\": 2300,\n" +
-                "                    \"width\": 1280,\n" +
-                "                    \"height\": 720,\n" +
-                "                    \"frameRate\": 30,\n" +
-                "                    \"qualityType\": \"HIGH\",\n" +
-                "                    \"qualityTypeName\": \"高清\",\n" +
-                "                    \"hidden\": false,\n" +
-                "                    \"disabledFromAdaptive\": false,\n" +
-                "                    \"defaultSelected\": false\n" +
-                "                }\n" +
-                "            ]\n" +
-                "        }\n" +
-                "    ]\n" +
-                "}";
-
+                        "    \"version\": \"1.0.0\",\n" +
+                        "    \"adaptationSet\": [\n" +
+                        "        {\n" +
+                        "            \"duration\": 1000,\n" +
+                        "            \"id\": 1,\n" +
+                        "            \"representation\": [\n" +
+                        "                {\n" +
+                        "                    \"id\": 1,\n" +
+                        "                    \"codec\": \"avc1.64001e,mp4a.40.5\",\n" +
+                        "                    \"url\": \"http://las-tech.org.cn/kwai/las-test_ld500d.flv\",\n" +
+                        "                    \"backupUrl\": [],\n" +
+                        "                    \"host\": \"las-tech.org.cn\",\n" +
+                        "                    \"maxBitrate\": 700,\n" +
+                        "                    \"width\": 640,\n" +
+                        "                    \"height\": 360,\n" +
+                        "                    \"frameRate\": 25,\n" +
+                        "                    \"qualityType\": \"SMOOTH\",\n" +
+                        "                    \"qualityTypeName\": \"流畅\",\n" +
+                        "                    \"hidden\": false,\n" +
+                        "                    \"disabledFromAdaptive\": false,\n" +
+                        "                    \"defaultSelected\": false\n" +
+                        "                },\n" +
+                        "                {\n" +
+                        "                    \"id\": 2,\n" +
+                        "                    \"codec\": \"avc1.64001f,mp4a.40.5\",\n" +
+                        "                    \"url\": \"http://las-tech.org.cn/kwai/las-test_sd1000d.flv\",\n" +
+                        "                    \"backupUrl\": [],\n" +
+                        "                    \"host\": \"las-tech.org.cn\",\n" +
+                        "                    \"maxBitrate\": 1300,\n" +
+                        "                    \"width\": 960,\n" +
+                        "                    \"height\": 540,\n" +
+                        "                    \"frameRate\": 25,\n" +
+                        "                    \"qualityType\": \"STANDARD\",\n" +
+                        "                    \"qualityTypeName\": \"标清\",\n" +
+                        "                    \"hidden\": false,\n" +
+                        "                    \"disabledFromAdaptive\": false,\n" +
+                        "                    \"defaultSelected\": true\n" +
+                        "                },\n" +
+                        "                {\n" +
+                        "                    \"id\": 3,\n" +
+                        "                    \"codec\": \"avc1.64001f,mp4a.40.5\",\n" +
+                        "                    \"url\": \"http://las-tech.org.cn/kwai/las-test.flv\",\n" +
+                        "                    \"backupUrl\": [],\n" +
+                        "                    \"host\": \"las-tech.org.cn\",\n" +
+                        "                    \"maxBitrate\": 2300,\n" +
+                        "                    \"width\": 1280,\n" +
+                        "                    \"height\": 720,\n" +
+                        "                    \"frameRate\": 30,\n" +
+                        "                    \"qualityType\": \"HIGH\",\n" +
+                        "                    \"qualityTypeName\": \"高清\",\n" +
+                        "                    \"hidden\": false,\n" +
+                        "                    \"disabledFromAdaptive\": false,\n" +
+                        "                    \"defaultSelected\": false\n" +
+                        "                }\n" +
+                        "            ]\n" +
+                        "        }\n" +
+                        "    ]\n" +
+                        "}";
+        mAdapter.addItem("rtsp://10.7.0.189:554/face", "rtsp");
+        mAdapter.addItem("rtsp://10.10.2.17:554/pag://10.10.2.17:7302:35010000001310011390:0:MAIN:TCP", "dsfa");
+        mAdapter.addItem("rtsp://61.156.103.73:554/PLTV/88888888/224/3221226043/10000100000000060000000000286778_0.smil", "dsfa");
         mAdapter.addItem(manifest_string, "las test");
+        mAdapter.addItem("rtmp://tencent.a1000.top/live/room", "sei-rtmp");
+        mAdapter.addItem("http://tencent.a1000.top:8088/live/room/index.m3u8", "sei-hls");
+        mAdapter.addItem("rtmp://192.168.168.191/live/sei", "sei");
+        mAdapter.addItem("https://56cf3370d8dd3.streamlock.net:1935/live/wfu.stream/chunklist_w760635728.m3u8", "wfu.edu");
+        mAdapter.addItem("https://gcalic.v.myalicdn.com/gc/tms04_1/index.m3u8?contentid=2820180516001", "湖南-天门山云梦山顶");
         mAdapter.addItem("http://devimages.apple.com.edgekey.net/streaming/examples/bipbop_4x3/bipbop_4x3_variant.m3u8", "bipbop basic master playlist");
         mAdapter.addItem("http://devimages.apple.com.edgekey.net/streaming/examples/bipbop_4x3/gear1/prog_index.m3u8", "bipbop basic 400x300 @ 232 kbps");
         mAdapter.addItem("http://devimages.apple.com.edgekey.net/streaming/examples/bipbop_4x3/gear2/prog_index.m3u8", "bipbop basic 640x480 @ 650 kbps");

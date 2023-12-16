@@ -34,18 +34,16 @@ dependencies {
     compile 'com.gitee.mahongyin:ijkplayer-exo2:0.1.0'
 }
 ```
-- iOS
- - in coming...
 
 ### My Build Environment
 - Common
- - Mac OS X 10.11.5
+ - ubuntu 20.4 TLS & Mac OS X 12
 - Android
- - [NDK r10e](http://developer.android.com/tools/sdk/ndk/index.html)
- - Android Studio 2.1.3
- - Gradle 2.14.1
+ - [NDK r14](http://developer.android.com/tools/sdk/ndk/index.html)
+ - Android Studio 4.2.2
+ - Gradle 6.7.1
 - iOS
- - Xcode 7.3 (7D175)
+ - Xcode 12
 - [HomeBrew](http://brew.sh)
  - ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
  - brew install git
@@ -140,7 +138,10 @@ sh compile-ffmpeg.sh clean
 # choose [No] to use bash
 sudo dpkg-reconfigure dash
 ```
-
+ijkplayer 删除本地tag
+git tag -d  k0.2.3 k0.2.4 k0.3.0 k0.3.1 k0.3.2 k0.3.2-rc.1 k0.3.2-rc.2 k0.3.2-rc.3 k0.3.2.1 k0.3.2.2 k0.3.3 k0.4.0 k0.4.1 k0.4.1.1 k0.4.2 k0.4.2.1 k0.4.2.2 k0.4.2.3 k0.4.2.4 k0.4.3 k0.4.3.1 k0.4.3.12 k0.4.3.3 k0.4.3.5 k0.4.3.6 k0.4.3.7 k0.4.4 k0.4.4.1 k0.4.5 k0.4.5.1 k0.5.0 k0.5.1 k0.5.1.1 k0.6.0 k0.6.1 k0.6.1.1 k0.6.1.2 k0.6.2 k0.6.2.1 k0.6.2.2 k0.6.3 k0.7.0 k0.7.0.1 k0.7.1 k0.7.2 k0.7.3 k0.7.4 k0.7.5 k0.7.6 k0.7.7 k0.7.7.1 k0.7.8 k0.7.8.1 k0.7.9 k0.8.0 k0.8.1 k0.8.2 k0.8.3 k0.8.4 k0.8.5.1 n0.0.1 n0.0.2 n0.0.3 n0.0.4 n0.0.5 n0.0.6 n0.0.7 n0.1.0 n0.1.1 n0.1.2 n0.1.3 n0.2.0 n0.2.1 n0.2.2 wk2.2 wk2.2a wk2.2b
+删除远程tag
+git push origin --delete k0.2.3 k0.2.4 k0.3.0 k0.3.1 k0.3.2 k0.3.2-rc.1 k0.3.2-rc.2 k0.3.2-rc.3 k0.3.2.1 k0.3.2.2 k0.3.3 k0.4.0 k0.4.1 k0.4.1.1 k0.4.2 k0.4.2.1 k0.4.2.2 k0.4.2.3 k0.4.2.4 k0.4.3 k0.4.3.1 k0.4.3.12 k0.4.3.3 k0.4.3.5 k0.4.3.6 k0.4.3.7 k0.4.4 k0.4.4.1 k0.4.5 k0.4.5.1 k0.5.0 k0.5.1 k0.5.1.1 k0.6.0 k0.6.1 k0.6.1.1 k0.6.1.2 k0.6.2 k0.6.2.1 k0.6.2.2 k0.6.3 k0.7.0 k0.7.0.1 k0.7.1 k0.7.2 k0.7.3 k0.7.4 k0.7.5 k0.7.6 k0.7.7 k0.7.7.1 k0.7.8 k0.7.8.1 k0.7.9 k0.8.0 k0.8.1 k0.8.2 k0.8.3 k0.8.4 k0.8.5.1 n0.0.1 n0.0.2 n0.0.3 n0.0.4 n0.0.5 n0.0.6 n0.0.7 n0.1.0 n0.1.1 n0.1.2 n0.1.3 n0.2.0 n0.2.1 n0.2.2 wk2.2 wk2.2a wk2.2b
 - If you'd like to share your config, pull request is welcome.
 
 ### Build Android
@@ -164,10 +165,10 @@ cd ..
 #
 #     define ext block in your root build.gradle
 #     ext {
-#       compileSdkVersion = 23       // depending on your sdk version
-#       buildToolsVersion = "23.0.0" // depending on your build tools version
+#       compileSdkVersion = 28       // depending on your sdk version
+#       buildToolsVersion = "28.0.3" // depending on your build tools version
 #
-#       targetSdkVersion = 23        // depending on your sdk version
+#       targetSdkVersion = 28        // depending on your sdk version
 #     }
 #
 # If you want to enable debugging ijkplayer(native modules) on Android Studio 2.2+: (experimental)

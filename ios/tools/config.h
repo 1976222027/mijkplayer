@@ -31,7 +31,7 @@
 #       include "armv7s/config.h"
 #   elif defined(__ARM_ARCH)
 #       if __ARM_ARCH == 7
-#           include "armv7/config.h"
+#          // include "armv7/config.h"
 #       else
 #           error Unsupport ARM architecture
 #       endif

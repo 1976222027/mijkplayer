@@ -16,7 +16,7 @@ index b3b7b3a..9cc99b5 100644
 +++ b/android/ijkplayer/ijkplayer-armv7a/build.gradle
 @@ -10,16 +10,33 @@ android {
      defaultConfig {
-         minSdkVersion 9
+         minSdkVersion 16
          targetSdkVersion rootProject.ext.targetSdkVersion
 +        externalNativeBuild {
 +            ndkBuild {

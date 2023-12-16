@@ -48,7 +48,7 @@ public class FileExplorerActivity extends AppActivity {
         if (!TextUtils.isEmpty(lastDirectory) && new File(lastDirectory).isDirectory())
             doOpenDirectory(lastDirectory, false);
         else
-            doOpenDirectory("/", false);
+            doOpenDirectory("/sdcard/", false);
     }
 
     @Override
@@ -83,7 +83,7 @@ public class FileExplorerActivity extends AppActivity {
             f = f.getAbsoluteFile();
             f = f.getCanonicalFile();
             if (TextUtils.isEmpty(f.toString()))
-                f = new File("/");
+                f = new File("/storage/emulated/0/");
         } catch (IOException e) {
             e.printStackTrace();
         }

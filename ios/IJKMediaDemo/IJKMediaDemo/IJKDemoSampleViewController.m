@@ -38,6 +38,14 @@
 
     [sampleList addObject:@[@"las url",
     @"{\"version\":\"1.0.0\",\"adaptationSet\":[{\"duration\":1000,\"id\":1,\"representation\":[{\"id\":1,\"codec\":\"avc1.64001e,mp4a.40.5\",\"url\":\"http://las-tech.org.cn/kwai/las-test_ld500d.flv\",\"backupUrl\":[],\"host\":\"las-tech.org.cn\",\"maxBitrate\":700,\"width\":640,\"height\":360,\"frameRate\":25,\"qualityType\":\"SMOOTH\",\"qualityTypeName\":\"流畅\",\"hidden\":false,\"disabledFromAdaptive\":false,\"defaultSelected\":false},{\"id\":2,\"codec\":\"avc1.64001f,mp4a.40.5\",\"url\":\"http://las-tech.org.cn/kwai/las-test_sd1000d.flv\",\"backupUrl\":[],\"host\":\"las-tech.org.cn\",\"maxBitrate\":1300,\"width\":960,\"height\":540,\"frameRate\":25,\"qualityType\":\"STANDARD\",\"qualityTypeName\":\"标清\",\"hidden\":false,\"disabledFromAdaptive\":false,\"defaultSelected\":true},{\"id\":3,\"codec\":\"avc1.64001f,mp4a.40.5\",\"url\":\"http://las-tech.org.cn/kwai/las-test.flv\",\"backupUrl\":[],\"host\":\"las-tech.org.cn\",\"maxBitrate\":2300,\"width\":1280,\"height\":720,\"frameRate\":30,\"qualityType\":\"HIGH\",\"qualityTypeName\":\"高清\",\"hidden\":false,\"disabledFromAdaptive\":false,\"defaultSelected\":false}]}]}"]];
+    [sampleList addObject:@[@"RTSP",
+                            @"rtsp://wowzaec2demo.streamlock.net/vod/mp4:BigBuckBunny_115k.mov"]];
+    [sampleList addObject:@[@"RTMP",
+                            @"rtmp://39.100.192.249:1935/live/room"]];
+    [sampleList addObject:@[@"湖南-天门山云梦山顶",
+                            @"https://gcalic.v.myalicdn.com/gc/tms04_1/index.m3u8?contentid=2820180516001"]];
+	[sampleList addObject:@[@"HTTPS-CCTV1-DRM",
+                            @"https://cctvtxyh5c.liveplay.myqcloud.com/live/cdrmcctv1_1_td.m3u8"]];
     [sampleList addObject:@[@"bipbop basic master playlist",
                             @"http://devimages.apple.com.edgekey.net/streaming/examples/bipbop_4x3/bipbop_4x3_variant.m3u8"]];
     [sampleList addObject:@[@"bipbop basic 400x300 @ 232 kbps",

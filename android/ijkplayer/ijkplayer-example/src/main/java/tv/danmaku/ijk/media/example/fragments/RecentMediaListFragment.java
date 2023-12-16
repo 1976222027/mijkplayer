@@ -18,19 +18,26 @@
 package tv.danmaku.ijk.media.example.fragments;
 
 import android.app.Activity;
+import android.content.ContentValues;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
 import android.support.v4.widget.SimpleCursorAdapter;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import tv.danmaku.ijk.media.example.R;
 import tv.danmaku.ijk.media.example.activities.VideoActivity;
@@ -39,6 +46,7 @@ import tv.danmaku.ijk.media.example.content.RecentMediaStorage;
 public class RecentMediaListFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
     private ListView mFileListView;
     private RecentMediaAdapter mAdapter;
+    private AlertDialog alertDialog;
 
     public static RecentMediaListFragment newInstance() {
         RecentMediaListFragment f = new RecentMediaListFragment();
@@ -67,6 +75,23 @@ public class RecentMediaListFragment extends Fragment implements LoaderManager.L
                 String url = mAdapter.getUrl(position);
                 String name = mAdapter.getName(position);
                 VideoActivity.intentTo(activity, url, name);
+            }
+        });
+        mFileListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override // android.widget.AdapterView.OnItemLongClickListener
+            public boolean onItemLongClick(AdapterView<?> adapterView, View view, final int position, long id) {
+                String url = mAdapter.getUrl(position);
+                if (Build.VERSION.SDK_INT >= 21) {
+                    alertDialog = new AlertDialog.Builder(getContext()).setView(LayoutInflater.from(getContext()).inflate(R.layout.layout_edit, (ViewGroup) null, true)).setMessage("修改").setPositiveButton("确认", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            mAdapter.updateUrl(position, ((EditText) alertDialog.findViewById(R.id.ed_tv)).getText().toString());
+                        }
+                    }).create();
+                    alertDialog.show();
+                    ((EditText) alertDialog.findViewById(R.id.ed_tv)).setText(url);
+                }
+                return true;
             }
         });
 
@@ -135,6 +160,24 @@ public class RecentMediaListFragment extends Fragment implements LoaderManager.L
                 return "";
 
             return cursor.getString(mIndex_url);
+        }
+        public void updateUrl(int position, String url) {
+            Cursor cursor = moveToPosition(position);
+            if (cursor != null) {
+                ContentValues cv = new ContentValues();
+                cv.put("url", url);
+                String[] whereArgs = {cursor.getInt(this.mIndex_id) + ""};
+                SQLiteDatabase db = new RecentMediaStorage.OpenHelper(getContext()).getReadableDatabase();
+                try {
+                    db.update(RecentMediaStorage.Entry.TABLE_NAME, cv, "id=?", whereArgs);
+                    db.close();
+                    cursor.requery();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    db.close();
+                    Toast.makeText(getContext(), "修改失败：已存在该内容", 0).show();
+                }
+            }
         }
 
         public String getName(int position) {
