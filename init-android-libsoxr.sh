@@ -17,7 +17,7 @@
 #
 
 IJK_LIBSOXR_UPSTREAM=http://git.code.sf.net/p/soxr/code
-IJK_LIBSOXR_FORK=http://git.code.sf.net/p/soxr/code
+IJK_LIBSOXR_FORK=https://gitee.com/mahongyin/soxrcode.git
 IJK_LIBSOXR_COMMIT=0.1.2
 IJK_LIBSOXR_COMMIT_64=master
 IJK_LIBSOXR_LOCAL_REPO=extra/soxr
@@ -54,7 +54,7 @@ function pull_android_toolchain_cmake()
 
 pull_android_toolchain_cmake
 
-pull_fork "armv5"
+
 pull_fork "armv7a"
 pull_fork "arm64"
 pull_fork "x86"

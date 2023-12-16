@@ -17,8 +17,8 @@
 #
 
 IJK_OPENSSL_UPSTREAM=https://github.com/openssl/openssl
-IJK_OPENSSL_FORK=https://github.com/Bilibili/openssl.git
-IJK_OPENSSL_COMMIT=OpenSSL_1_0_2q
+IJK_OPENSSL_FORK=https://gitee.com/mirrors/openssl.git
+IJK_OPENSSL_COMMIT=OpenSSL_1_1_1w
 IJK_OPENSSL_LOCAL_REPO=extra/openssl
 
 set -e
@@ -36,7 +36,6 @@ function pull_fork()
     cd -
 }
 
-pull_fork "armv7"
 pull_fork "armv7s"
 pull_fork "arm64"
 pull_fork "i386"
