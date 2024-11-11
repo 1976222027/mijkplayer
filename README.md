@@ -34,6 +34,18 @@ dependencies {
     compile 'com.gitee.mahongyin:ijkplayer-exo2:0.1.0'
 }
 ```
+#### issues
+https://github.com/Bilibili/ijkplayer/issues/4569
+解决方案有两种：
+1。创建AudioTrack是，bufferSizeInBytes参数设置为4*minBufferSize，可能会导致音频延迟增加一倍
+2。走软的加速，即soundtouch，可能会增加性能消耗  必须执行init-android-soundtouch.sh，重新编译ijkplayer
+ijkplayer.setOption(IjkMediaPlayer.OPT_CATEGORY_PLAYER, "soundtouch", 1)
+这个设置要放在 prepareAsync()之前设置 紧接着 prepareAsync()这个之前设置就行了
+我之前是在new IjkMediaPlayer() 之后设置 一直不起作用 后来改了之后 就ok了
+正如jiaobinbin同学说的那样，需要在prepareAsync之前设置就能生效，如果对象new出来以后你又调用了reset函数，
+那么久会把这个soundtouch属性干掉了，所以在prepareAsync之前再设置就好了，已经解决了米8上的这个问题
+感觉这是小米的一个bug。
+
 
 ### My Build Environment
 - Common
