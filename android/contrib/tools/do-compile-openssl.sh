@@ -66,20 +66,23 @@ FF_GCC_64_VER=$IJK_GCC_64_VER
 if [ "$FF_ARCH" = "armv7a" ]; then
     FF_BUILD_NAME=openssl-armv7a
     FF_SOURCE=$FF_BUILD_ROOT/$FF_BUILD_NAME
-	
+
+	  FF_ANDROID_PLATFORM=android-16
     FF_CROSS_PREFIX=arm-linux-androideabi
 	FF_TOOLCHAIN_NAME=${FF_CROSS_PREFIX}-${FF_GCC_VER}
 
-    FF_PLATFORM_CFG_FLAGS="android-armv7"
+#    FF_PLATFORM_CFG_FLAGS="android-armv7"
+    FF_PLATFORM_CFG_FLAGS="linux-armv4 -march=armv7-a"
 
 elif [ "$FF_ARCH" = "x86" ]; then
     FF_BUILD_NAME=openssl-x86
     FF_SOURCE=$FF_BUILD_ROOT/$FF_BUILD_NAME
-	
+
+	  FF_ANDROID_PLATFORM=android-16
     FF_CROSS_PREFIX=i686-linux-android
 	FF_TOOLCHAIN_NAME=x86-${FF_GCC_VER}
 
-    FF_PLATFORM_CFG_FLAGS="android-x86"
+    FF_PLATFORM_CFG_FLAGS="android-x86"  # linux-x86
 
     FF_CFG_FLAGS="$FF_CFG_FLAGS no-asm"
 
@@ -155,6 +158,7 @@ FF_CFG_FLAGS="$FF_CFG_FLAGS $COMMON_FF_CFG_FLAGS"
 # Standard options:
 FF_CFG_FLAGS="$FF_CFG_FLAGS zlib-dynamic"
 FF_CFG_FLAGS="$FF_CFG_FLAGS no-shared"
+FF_CFG_FLAGS="$FF_CFG_FLAGS --prefix=$FF_PREFIX"
 FF_CFG_FLAGS="$FF_CFG_FLAGS --openssldir=$FF_PREFIX"
 FF_CFG_FLAGS="$FF_CFG_FLAGS --cross-compile-prefix=${FF_CROSS_PREFIX}-"
 FF_CFG_FLAGS="$FF_CFG_FLAGS $FF_PLATFORM_CFG_FLAGS"

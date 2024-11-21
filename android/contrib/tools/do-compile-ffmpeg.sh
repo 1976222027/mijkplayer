@@ -81,6 +81,7 @@ if [ "$FF_ARCH" = "armv7a" ]; then
     FF_BUILD_NAME_LIBSOXR=libsoxr-armv7a
     FF_SOURCE=$FF_BUILD_ROOT/$FF_BUILD_NAME
 
+    FF_ANDROID_PLATFORM=android-16
     FF_CROSS_PREFIX=arm-linux-androideabi
     FF_TOOLCHAIN_NAME=${FF_CROSS_PREFIX}-${FF_GCC_VER}
 
@@ -99,6 +100,7 @@ elif [ "$FF_ARCH" = "x86" ]; then
     FF_BUILD_NAME_LIBSOXR=libsoxr-x86
     FF_SOURCE=$FF_BUILD_ROOT/$FF_BUILD_NAME
 
+    FF_ANDROID_PLATFORM=android-16
     FF_CROSS_PREFIX=i686-linux-android
     FF_TOOLCHAIN_NAME=x86-${FF_GCC_VER}
 

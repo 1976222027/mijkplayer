@@ -1,4 +1,5 @@
 # ijkplayer
+fork ijkplayer
 
  Platform | Build Guide
  -------- | ------------
@@ -7,33 +8,7 @@
 
 Video player based on [ffplay](http://ffmpeg.org)
 
-### Download
 
-- Android:
- - Gradle
-```
-# required
-allprojects {
-    repositories {
-        maven {url 'https://jitpack.io'}
-    }
-}
-
-dependencies {
-    # required, enough for most devices.
-    compile 'com.gitee.mahongyin:ijkplayer-java:0.1.0'
-    compile 'com.gitee.mahongyin:ijkplayer-armv7a:0.1.0'
-
-    # Other ABIs: optional
-    compile 'com.gitee.mahongyin:ijkplayer-arm64:0.1.0'
-    compile 'com.gitee.mahongyin:ijkplayer-x86:0.1.0'
-    compile 'com.gitee.mahongyin:ijkplayer-x86_64:0.1.0'
-
-    # ExoPlayer as IMediaPlayer: optional, experimental
-    compile 'com.gitee.mahongyin:ijkplayer-exo:0.1.0'
-    compile 'com.gitee.mahongyin:ijkplayer-exo2:0.1.0'
-}
-```
 #### issues
 https://github.com/Bilibili/ijkplayer/issues/4569
 解决方案有两种：
@@ -45,6 +20,10 @@ ijkplayer.setOption(IjkMediaPlayer.OPT_CATEGORY_PLAYER, "soundtouch", 1)
 正如jiaobinbin同学说的那样，需要在prepareAsync之前设置就能生效，如果对象new出来以后你又调用了reset函数，
 那么久会把这个soundtouch属性干掉了，所以在prepareAsync之前再设置就好了，已经解决了米8上的这个问题
 感觉这是小米的一个bug。
+
+ffmpeg 完全使用了ShikinChen的ff6.1， 改编译脚本修参考focuseyes360
+感谢：[focuseyes360](https://github.com/focuseyes360)、[ShikinChen](https://github.com/ShikinChen/FFmpeg)
+
 
 
 ### My Build Environment

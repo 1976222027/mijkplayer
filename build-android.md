@@ -1,16 +1,19 @@
 ### Build Android
 
-Android SDK 21及以下版本支持的NDK架构：
-armeabi
-armeabi-v7a
+Android SDK 21以下版本支持的NDK架构：
+armeabi       9+
+armeabi-v7a   16+
 x86
-Android SDK 22及以上版本支持的NDK架构：
+Android SDK 21及以上版本支持的NDK架构：
 armeabi-v7a
-arm64-v8a
+arm64-v8a     21+
 x86
-x86_64
+x86_64        21+
 
 ```
+配置NDK环境
+ export ANDROID_NDK=...ndk/22.1.7171670
+
 # install homebrew, git, yasm
 ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 brew install git
