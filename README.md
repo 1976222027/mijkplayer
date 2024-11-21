@@ -49,7 +49,7 @@ ffmpeg 完全使用了ShikinChen的ff6.1， 改编译脚本修参考focuseyes360
  - workaround for some buggy online video.
  - 一些有问题的在线视频的解决方法。
 - Android
- - platform: API 16~34
+ - platform: API 16~34  64位是最低21  21~34
  - 平台：API 16~34
  - cpu: ARMv7a, ARM64v8a, x86 x86_64
  - api: [MediaPlayer-like](android/ijkplayer/ijkplayer-java/src/main/java/tv/danmaku/ijk/media/player/IMediaPlayer.java)
@@ -62,18 +62,23 @@ ffmpeg 完全使用了ShikinChen的ff6.1， 改编译脚本修参考focuseyes360
  - alternative-backend: android.media.MediaPlayer, ExoPlayer
  - 替代后端：android.media.MediaPlayer、ExoPlayer
 - iOS
- - platform: iOS 7.0~17.x
- - iOS - 平台：iOS 7.0~17.x
- - cpu: armv7, arm64, i386, x86_64, (armv7s is obselete)
+ - platform: iOS 9.0~17.x
+ - iOS - 平台：iOS 9.0~17.x
+ - cpu: arm64, i386, x86_64, (armv7s is obselete)
  - api: [MediaPlayer.framework-like](ios/IJKMediaPlayer/IJKMediaPlayer/IJKMediaPlayback.h)
  - video-output: OpenGL ES 2.0
  - audio-output: AudioQueue, AudioUnit
  - hw-decoder: VideoToolbox (iOS 8+)
  - alternative-backend: AVFoundation.Framework.AVPlayer, MediaPlayer.Framework.MPMoviePlayerControlelr (obselete since iOS 8)
-    - cpu ：armv7、arm64、i386、x86_64、（armv7s 已过时） - api：[MediaPlayer.framework-like](iosIJKMediaPlayerIJKMediaPlayerIJKMediaPlayback.h) - 视频输出：OpenGL ES 2.0 - 音频输出：AudioQueue、AudioUnit - 硬件解码器： VideoToolbox (iOS 8+) - 替代后端：AVFoundation.Framework.AVPlayer、MediaPlayer.Framework.MPMoviePlayerControlelr（自 iOS 8 起已废弃）
+ - cpu ：arm64、i386、x86_64 
+ - api：[MediaPlayer.framework-like](iosIJKMediaPlayerIJKMediaPlayerIJKMediaPlayback.h) 
+ - 视频输出：OpenGL ES 2.0 
+ - 音频输出：AudioQueue、AudioUnit 
+ - 硬件解码器： VideoToolbox (iOS 8+) 
+ - 替代后端：AVFoundation.Framework.AVPlayer、MediaPlayer.Framework.MPMoviePlayerControlelr（自 iOS 8 起已废弃）
 ### NOT-ON-PLAN
-- obsolete platforms (Android: API-8 and below; iOS: pre-6.0)
-- obsolete cpu: ARMv5, ARMv6, MIPS (I don't even have these types of devices…)
+- obsolete platforms (Android: API-15 and below; iOS: pre-8.0)
+- obsolete cpu: ARMv5, ARMv6, ARMv7, MIPS (I don't even have these types of devices…)
 - native subtitle render
 - avfilter support
 

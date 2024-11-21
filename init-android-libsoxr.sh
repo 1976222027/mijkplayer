@@ -16,9 +16,10 @@
 # limitations under the License.
 #
 
-IJK_LIBSOXR_UPSTREAM=http://git.code.sf.net/p/soxr/code
+#IJK_LIBSOXR_UPSTREAM=http://git.code.sf.net/p/soxr/code
+IJK_LIBSOXR_UPSTREAM=https://gitee.com/mahongyin/soxrcode.git
 IJK_LIBSOXR_FORK=https://gitee.com/mahongyin/soxrcode.git
-IJK_LIBSOXR_COMMIT=0.1.2
+IJK_LIBSOXR_COMMIT=0.1.3  #0.1.2
 IJK_LIBSOXR_COMMIT_64=master
 IJK_LIBSOXR_LOCAL_REPO=extra/soxr
 
@@ -47,7 +48,7 @@ function pull_fork()
 
 function pull_android_toolchain_cmake()
 {
-    ANDROID_TOOLCHAIN_CMAKE_UPSTREAM=https://github.com/taka-no-me/android-cmake.git
+    ANDROID_TOOLCHAIN_CMAKE_UPSTREAM=https://gitee.com/mahongyin/android-cmake.git
     echo "== pull android toolchain cmake from $ANDROID_TOOLCHAIN_CMAKE_UPSTREAM =="
     sh $TOOLS/pull-repo-base.sh $ANDROID_TOOLCHAIN_CMAKE_UPSTREAM extra/android-cmake
 }

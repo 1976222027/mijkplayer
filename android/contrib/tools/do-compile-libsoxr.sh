@@ -29,7 +29,7 @@ fi
 # common defines
 FF_ARCH=$1
 if [ -z "$FF_ARCH" ]; then
-    echo "You must specific an architecture 'arm64, armv7a, x86, ...'.\n"
+    echo "You must specific an architecture 'arm64, armv7a, x86, x86_64, ...'.\n"
     exit 1
 fi
 
